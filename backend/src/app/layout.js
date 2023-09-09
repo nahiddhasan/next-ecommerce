@@ -2,6 +2,8 @@
 import { Poppins } from 'next/font/google'
 import { ThemeProvider } from '../ThemeContex/ThemeContex'
 import Sidebar from '../components/Sidebar'
+import AuthProvider from '../providers/AuthProvider'
+import ProtectedLayout from '../providers/ProtectedLayout'
 import './globals.css'
 
 const poppins = Poppins({
@@ -15,20 +17,25 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body className={poppins.className}>
-       <ThemeProvider>
-        <div className='dark:bg-dark dark:text-textPrimary h-screen w-full transition-all duration-200'>
-        {/* <Navbar/> */}
-          <div className='flex'>
-            <Sidebar />
-            <div>
-              {children}
+        <AuthProvider>
+          <ProtectedLayout>
+          <ThemeProvider>
+            <div className='dark:bg-dark dark:text-textPrimary h-screen w-full transition-all duration-200'>
+            {/* <Navbar/> */}
+              <div className='flex'>
+                <Sidebar />
+                <div className='w-[80%]'>
+                  {children}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-       </ThemeProvider>
+          </ThemeProvider>
+          </ProtectedLayout>
+        </AuthProvider>
         </body>
     </html>
   )

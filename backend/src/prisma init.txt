@@ -1,0 +1,2 @@
+//prisma init with mongodb
+npx prisma init --datasource-provider mongodb

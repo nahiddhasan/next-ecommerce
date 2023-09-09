@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -15,9 +16,10 @@ const sidebarItem = [
 ];
 
 const Sidebar = () => {
+  const { data } = useSession();
+  console.log(data);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
-  const [settingsopen, setSettingsopen] = useState(false);
   return (
     <div
       className={` ${
@@ -57,7 +59,7 @@ const Sidebar = () => {
       <div className="flex flex-col items-center gap-2 flex-1">
         <div className="rounded-full overflow-hidden">
           <Image
-            src="/img/noavatar.jpg"
+            src={data?.user.image}
             height={85}
             width={85}
             alt="profile"
@@ -66,9 +68,9 @@ const Sidebar = () => {
           />
         </div>
         <div className="flex flex-col ">
-          <span className="text-lg">John Doe</span>
+          <span className="text-lg text-center">{data?.user.name}</span>
           <span className="text-textSecondery text-sm text-center">
-            Manager
+            {data?.user.email}
           </span>
         </div>
 

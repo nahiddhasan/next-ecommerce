@@ -7,10 +7,10 @@ export const authOptions = {
   adapter: PrismaAdapter(prisma),
     providers: [
       GoogleProvider({
-        clientId: process.env.GOOGLE_ID,
-        // clientId: "829366865983-mbpa2vovh1p4n0ad9kglldovk1dm8dru.apps.googleusercontent.com",
-        // clientSecret: "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",
-        clientSecret: process.env.GOOGLE_SECRET,
+        // clientId: process.env.GOOGLE_ID,
+        clientId: "829366865983-mbpa2vovh1p4n0ad9kglldovk1dm8dru.apps.googleusercontent.com",
+        clientSecret: "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",
+        // clientSecret: process.env.GOOGLE_SECRET,
       }),
     ],
   };

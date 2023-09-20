@@ -43,9 +43,15 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   image         String?
+  role          ROLE   @default(USER)
   accounts      Account[]
   sessions      Session[]
+ 
+}
 
+enum ROLE {
+  ADMIN
+  USER
 }
 
 model VerificationToken {
@@ -57,9 +63,26 @@ model VerificationToken {
 }
 
 
+model Category {
+  id        String  @id @default(cuid()) @map("_id")
+  createdAt DateTime  @default(now())
+  title     String
+  slug      String    @unique
+  products  Product[]
+}
 
-model Post {
-  id            String    @id @default(cuid()) @map("_id")
-  name          String?
-
+model Product {
+  id         String  @id @default(cuid()) @map("_id")
+  createdAt  DateTime @default(now())
+  title      String
+  desc       String
+  hoverImage String?
+  displayImage String?
+  images      String[]
+  size       String[]
+  color      String[]
+  price      Float
+  isFeatured Boolean  @default(false)
+  category   Category @relation(fields: [catSlug], references: [slug])
+  catSlug    String
 }
